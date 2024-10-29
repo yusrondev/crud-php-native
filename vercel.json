@@ -1,15 +1,11 @@
 {
     "functions": {
       "api/*.php": {
-        "runtime": "vercel-php@0.7.3",
-        "config": {
-          "extensions": ["pgsql"]
-        }
+        "runtime": "vercel-php@0.7.3"
       }
     },
     "routes": [
       { "src": "/(.*)", "dest": "/api/index.php" }
     ]
   }
-  
   
