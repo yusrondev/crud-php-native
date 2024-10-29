@@ -1,16 +1,14 @@
 <?php 
 
-$host = $_ENV['PG_HOST'];
-$port = $_ENV['PG_PORT'];
-$db = $_ENV['PG_DB'];
-$user = $_ENV['PG_USER'];
-$password = $_ENV['PG_PASSWORD'];
+try {
+    $dsn = "pgsql:host={$_ENV['PG_HOST']};port={$_ENV['PG_PORT']};dbname={$_ENV['PG_DB']}";
+    $user = $_ENV['PG_USER'];
+    $password = $_ENV['PG_PASSWORD'];
 
-$connection_string = "host=" . $host . " port=" . $port . " dbname=" . $db . " user=" . $user . " password=" . $password . " sslmode=require";
+    $dbconn = new PDO($dsn, $user, $password);
+    $dbconn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$dbconn = pg_connect($connection_string);
-
-if (!$dbconn) {
-    die("Connection failed: " . pg_last_error());
+    echo "Connected successfully"; 
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
 }
-echo "Connected successfully";
